@@ -31,6 +31,13 @@
   text-overflow: clip;
 }
 
+#div2 {
+  word-wrap: break-word;
+  width: 20em;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
   width: 100%;
 }

@@ -125,6 +125,20 @@ router.post('/comments/', function (req, res) {
     });
 });
 
+router.post('/removeComment/', function(req, res) {
+    Video.update(
+        {videoId: req.body.videoId},
+        {$pull: {'comments' : { 'body': req.body.body}}},
+        (err) => {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                res.status(200).send('Comment Removed Successfully');
+            }
+        }
+    );
+});
+
 router.post('/viewed', function (req, res) {
     Video.findOne({ 'videoId': req.body.videoId }, function (err, video) {
         if (err) {

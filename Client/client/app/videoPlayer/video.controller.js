@@ -15,6 +15,7 @@ export default class userCtrl {
         this.videoview = '';
         this.likes = '';
         this.videosLiked = [];
+        this.recommendedVideos = [];
         this.videoAlreadyLiked = false;
 
         $(window).blur(() => {
@@ -44,8 +45,18 @@ export default class userCtrl {
             this.allUserInfo = response.data;
             this.videosLiked = this.allUserInfo.videosLiked;
             this.videoAlreadyLiked = _.includes(_.map(this.videosLiked, (video) => {return video.videoId}), this.currentVideoId);
+            this.recommendedVideos = _.filter(response.data.recommendations, (video) => {
+                return video.videoId !== this.currentVideoId;
+            });
         });
 
+    }
+
+    removeComment(comment) {
+        this.comments = _.filter(this.comments, (eachComment) => {
+            return eachComment.username !== comment.username || eachComment.body !== comment.body;
+        });
+        this.videoService.removeComment(comment, this.currentVideoId).then()
     }
 
     onPlayerReady(API) {

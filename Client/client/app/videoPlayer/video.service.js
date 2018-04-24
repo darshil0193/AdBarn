@@ -19,6 +19,16 @@ export default class videoService {
     searchVideos(tags) {
         return this.http.post(`https://ad-barn-backend.herokuapp.com/user/search`, tags);
     }
+
+    removeComment(comment, videoId) {
+        let obj= {
+            username: comment.username,
+            body: comment.body,
+            videoId: videoId
+        };
+        console.log(obj);
+        return this.http.post(`https://ad-barn-backend.herokuapp.com/user/removeComment`, obj)
+    }
 }
 
 videoService.$inject = ['$http'];

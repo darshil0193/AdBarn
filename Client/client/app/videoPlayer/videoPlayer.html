@@ -43,12 +43,18 @@
 
 
                                     <div class="row" style="margin-top:10px; margin-left: 10px">
-                                                        <strong style="font-size: 20px">{{vm.videoname}}</strong>
-                                                        <br>
-                                                        <p style="font-size: 15px">{{vm.videoview}} Views {{vm.likes}} Likes</p>
-                                                        <p><button ng-click="vm.onLike(true)" ng-show="!vm.videoAlreadyLiked">Like</button></p>
-                                                        <p><button ng-click="vm.onLike(false)" ng-show="vm.videoAlreadyLiked">UnLike</button></p>
-                                        </div>
+                                        <strong style="font-size: 20px">{{vm.videoname}}</strong>
+                                        <br>
+                                        <p style="font-size: 15px">{{vm.videoview}} Views {{vm.likes}} Likes</p>
+                                        <p>
+                                            <button ng-click="vm.onLike(true)" ng-show="!vm.videoAlreadyLiked">Like
+                                            </button>
+                                        </p>
+                                        <p>
+                                            <button ng-click="vm.onLike(false)" ng-show="vm.videoAlreadyLiked">UnLike
+                                            </button>
+                                        </p>
+                                    </div>
 
                                     <div class="row" style="margin-top:50px ">
                                         <div class="col-sm-1">
@@ -59,15 +65,33 @@
                                         </div><!-- /col-sm-1 -->
 
                                         <div ng-if="vm.videosList.length" class="col-sm-5">
-                                            <textarea style="width: 200px;"  ng-keypress="vm.onCommentType($event)"
-                                                      ng-model="vm.newComment" placeholder="Add a public comment..."></textarea>
+                                            <textarea style="width: 200px;" ng-keypress="vm.onCommentType($event)"
+                                                      ng-model="vm.newComment"
+                                                      placeholder="Add a public comment..."></textarea>
                                             <div style="margin-top: 15px;" class="panel panel-default">
                                                 <div ng-repeat="comment in vm.comments" class="panel-heading">
                                                     <strong>{{comment.username}}</strong>
                                                     <span class="text-muted">{{comment.body}}</span>
+                                                    <button style="float: right" ng-click="vm.removeComment(comment)">Report Abuse</button>
                                                 </div>
                                             </div><!-- /panel panel-default -->
                                         </div><!-- /col-sm-5 -->
+                                    </div>
+
+                                    <div>
+
+                                        <h1>Your Recommended Videos</h1>
+
+                                        <li ng-repeat="video in vm.recommendedVideos" class="col-sm-12">
+                                            <a class="thumbnail col-sm-3" id="carousel-selector-2"><img
+                                                    src="http://www.videogular.com/assets/images/videogular.png"> </a>
+                                            <div id="div2" class=" col-sm-9"><a ng-click="vm.onVideoChange(video)">{{video.title}}</a>
+                                            </div>
+                                            <span><div class="col-sm-4"
+                                                       ng-if="vm.currentVideo != {} && vm.videosList.length !== 0">
+                                    <div><p style="font-size: 10px">{{video.views}} Views</p><p style="font-size: 10px">{{video.likes}} Likes</p></div>
+                            </div></span>
+                                        </li>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +107,8 @@
                         <li ng-repeat="video in vm.videosList" class="col-sm-12">
                             <a class="thumbnail col-sm-3" id="carousel-selector-1"><img
                                     src="http://www.videogular.com/assets/images/videogular.png"> </a>
-                            <div id="div1" class=" col-sm-9"><a ng-click="vm.onVideoChange(video)">{{video.title}}</a></div>
+                            <div id="div1" class=" col-sm-9"><a ng-click="vm.onVideoChange(video)">{{video.title}}</a>
+                            </div>
                             <span><div class="col-sm-4" ng-if="vm.currentVideo != {} && vm.videosList.length !== 0">
                                     <div><p style="font-size: 10px">{{video.views}} Views</p><p style="font-size: 10px">{{video.likes}} Likes</p></div>
                             </div></span>
